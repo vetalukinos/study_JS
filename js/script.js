@@ -1,15 +1,16 @@
 
-const money = 10;
+let money;
 
-let income = 10;
+let income;
 
-const addExpenses = 5;
+let addExpenses;
 
-let deposit = 10;
+let deposit;
 
-const mission = 'good';
+let mission;
 
-let period = 5;
+let period;
+
 
 //alert
 alert('Show must go on!');
