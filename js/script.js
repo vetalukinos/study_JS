@@ -1,5 +1,5 @@
 
-let money = 60;
+let money = 6000;
 console.log(typeof money);
 
 let income = 'freelance';
@@ -22,6 +22,41 @@ console.log('Цель заработать ' + mission + ' долларов');
 
 let budgetDay = money/30;
 console.log(budgetDay);
+
+/*Lesson 03*/
+money = prompt('Ваш месячный доход?');
+
+addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+
+deposit = confirm('Есть ли у вас депозит в банке?');
+console.log(deposit);
+
+expenses1 = prompt('Введите обязательную статью расходов?');
+expenses2 = prompt('Введите обязательную статью расходов?');
+
+amount1 = prompt('Во сколько это обойдется?');
+amount2 = prompt('Во сколько это обойдется?');
+
+let budgetMonth = (Number(money)) - ((Number(amount1)) + (Number(amount2)));
+console.log('Бюджет на месяц: ' + budgetMonth);
+
+missionMonth = mission/budgetMonth;
+console.log('Цель будет достигнута за ' + Math.ceil(missionMonth) + ' месяцев');
+
+budgetDay = budgetMonth/30;
+console.log('Бюджет на день: ' + Math.floor(budgetDay));
+
+if (budgetDay >= 1200) {
+    console.log('У вас высокий уровень дохода');
+} else if (budgetDay < 1200 && budgetDay >= 600) {
+    console.log('У вас средний уровень дохода');
+} else if (budgetDay < 600 && budgetDay >= 0) {
+    console.log('К сожалению у вас уровень дохода ниже среднего');
+} else if (budgetDay < 0) {
+    console.log('Что то пошло не так');
+}
+
+
 
 
 
