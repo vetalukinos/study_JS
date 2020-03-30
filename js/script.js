@@ -1,3 +1,4 @@
+'use strict';
 
 let money = 6000;
 console.log(typeof money);
@@ -31,16 +32,16 @@ addExpenses = prompt('Перечислите возможные расходы �
 deposit = confirm('Есть ли у вас депозит в банке?');
 console.log(deposit);
 
-expenses1 = prompt('Введите обязательную статью расходов?');
-expenses2 = prompt('Введите обязательную статью расходов?');
+let expenses1 = prompt('Введите обязательную статью расходов?');
+let expenses2 = prompt('Введите обязательную статью расходов?');
 
-amount1 = prompt('Во сколько это обойдется?');
-amount2 = prompt('Во сколько это обойдется?');
+let amount1 = +prompt('Во сколько это обойдется?');
+let amount2 = +prompt('Во сколько это обойдется?');
 
 let budgetMonth = (Number(money)) - ((Number(amount1)) + (Number(amount2)));
 console.log('Бюджет на месяц: ' + budgetMonth);
 
-missionMonth = mission/budgetMonth;
+let missionMonth = mission/budgetMonth;
 console.log('Цель будет достигнута за ' + Math.ceil(missionMonth) + ' месяцев');
 
 budgetDay = budgetMonth/30;
