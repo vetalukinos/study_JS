@@ -20,11 +20,11 @@ sowTypeOf(income);
 sowTypeOf(deposit);
 
 /*Расходы за месяц вызов getExpensesMonth*/
-let amountAll = amount1 + amount2;
-let getExpensesMonth = function() {
-    return amountAll;
+let getExpensesMonth = function(a, b) {
+    return a + b;
 };
-console.log('Расходы за месяц: ' + getExpensesMonth());
+let amountAll = getExpensesMonth(amount1,  amount2);
+console.log('Расходы за месяц: ' + amountAll);
 
 /*Вывод возможных расходов в виде массива (addExpenses)*/
 console.log(addExpenses.toLowerCase().split(', '));
