@@ -44,15 +44,8 @@ let appData = {
             appData.income[itemIncome] = cashIncome;
         }
 
-        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Интернет такси коммунальные расходы');
-
-        //Тут проблема
-        appData.addExpenses = addExpenses.toLowerCase();
-        for (let word of addExpenses) {
-            word = word[0].toUpperCase() + word.substr(1);
-            console.log(word);
-        } //Тут проблема
-
+        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Интернет,такси,коммунальные расходы');
+        appData.addExpenses = addExpenses.toLowerCase().split(',');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
         for (let i = 0; i < 2; i++) {
             let itemExpenses;
@@ -131,4 +124,7 @@ console.log('Наша программа включает в себя данны
 for (let key in appData) {
     console.log(key + ': ' + appData[key]);
 }
+
+let a = appData.addExpenses.map(item => item[0].toUpperCase() + item.slice(1));
+console.log(a.join(', '));
 
