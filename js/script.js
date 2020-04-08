@@ -1,61 +1,44 @@
 'use strict';
 
-let start = document.getElementById('start');
-console.log(start);
+const books = document.querySelectorAll('.books'),
+    book = document.querySelectorAll('.book'),
+    adv = document.querySelectorAll('.adv'),
+    ul = document.querySelectorAll('.book > ul'),
+    secondLi = book[0].querySelectorAll('.book > ul > li'),
+    fifthLi = book[5].querySelectorAll('.book > ul > li'),
+    sixthLi = book[2].querySelectorAll('.book > ul > li'),
+    newTitle = document.createElement('li');
 
-let incomeButton = document.getElementsByTagName('button')[0];
-console.log(incomeButton);
+books[0].append(book[2]);
+books[0].prepend(book[1]);
+book[3].before(book[4]);
 
-let expensesButton = document.getElementsByTagName('button')[1];
-console.log(expensesButton);
+document.body.style.backgroundImage = 'url("../image/you-dont-know-js.jpg")';
 
-let depositCheck = document.querySelector('#deposit-check');
-console.log(depositCheck);
+document.getElementsByClassName('book')[2].querySelector('a').textContent = 'Книга 3. this и Прототипы Объектов';
 
-let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
-console.log(additionalIncomeItem);
+adv[0].remove();
 
-let budgetMonthValue = document.getElementsByClassName('budget_month-value')[0];
-console.log(budgetMonthValue);
+/*Second Book*/
+secondLi[10].before(secondLi[2]);
+secondLi[9].before(secondLi[7]);
+secondLi[3].after(secondLi[6]);
+secondLi[6].after(secondLi[8]);
 
-let budgetDayValue = document.getElementsByClassName('budget_day-value')[0];
-console.log(budgetDayValue);
+/*Fifth Book*/
+fifthLi[1].after(fifthLi[9]);
+fifthLi[9].after(fifthLi[3]);
+fifthLi[3].after(fifthLi[4]);
+fifthLi[8].before(fifthLi[5]);
 
-let expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0];
-console.log(expensesMonthValue);
+/*Sixth Book*/
+newTitle.textContent = 'Глава 8: За пределами ES6';
+ul[2].append(newTitle);
+sixthLi[9].before(newTitle);
 
-let additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0];
-console.log(additionalIncomeValue);
-
-let additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0];
-console.log(additionalExpensesValue);
-
-let incomePeriodValue = document.getElementsByClassName('income_period-value')[0];
-console.log(incomePeriodValue);
-
-let targetMonthValue = document.getElementsByClassName('target_month-value')[0];
-console.log(targetMonthValue);
-
-let salaryAmount = document.querySelector('.salary-amount');
-console.log(salaryAmount);
-
-let incomeTitle = document.querySelector('.income-items > .income-title');
-console.log(incomeTitle);
-
-let incomeAmount = document.querySelector('.income-amount');
-console.log(incomeAmount);
-
-let expensesTitle = document.querySelector('.expenses-items > .expenses-title');
-console.log(expensesTitle);
-
-let expensesAmount = document.querySelector('.expenses-amount');
-console.log(expensesAmount);
-
-let additionalExpensesItem = document.querySelector('.additional_expenses-item');
-console.log(additionalExpensesItem);
-
-let targetAmount = document.querySelector('.target-amount');
-console.log(targetAmount);
-
-let periodSelect = document.querySelector('.period-select');
-console.log(periodSelect);
+console.log(books);
+console.log(book);
+console.log(ul);
+console.log(secondLi);
+console.log(fifthLi);
+console.log(sixthLi);
