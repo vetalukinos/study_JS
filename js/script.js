@@ -17,10 +17,11 @@ let start = document.getElementById('start'),
     incomeTitle = document.querySelector('.income-items > .income-title'),
     expensesTitle = document.querySelector('.expenses-items > .expenses-title'),
     expensesItems = document.querySelectorAll('.expenses-items'),
+    incomeItems = document.querySelectorAll('.income-items'),
     periodSelect = document.querySelector('.period-select'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
-    targetAmount = document.querySelector('.target-amount'),
-    incomeItem = document.querySelectorAll('.income-items');
+    targetAmount = document.querySelector('.target-amount')
+    /*incomeItem = document.querySelectorAll('.income-items');*/
 
 let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -66,7 +67,6 @@ let appData = {
         incomePeriodValue.value = appData.calcPeriod();
     },
     addExpensesBlock: function() {
-
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
         expensesItems = document.querySelectorAll('.expenses-items');
@@ -84,7 +84,15 @@ let appData = {
         });
     },
     getIncome: function() {
-        if (confirm('Есть ли у вас дополнительный источник заработка?')) {
+        incomeItems.forEach(function(item) {
+            let itemIncome = item.querySelector('.income-title').value;
+            let cashIncome = item.querySelector('.income-amount').value;
+            if (itemIncome !== '' && cashIncome !== '') {
+                appData.expenses[itemIncome] = cashIncome;
+            }
+        });
+
+       /* if (confirm('Есть ли у вас дополнительный источник заработка?')) {
             let itemIncome;
             do {
                 itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую-кайфую');
@@ -100,7 +108,7 @@ let appData = {
 
         for (let key in appData.income) {
             appData.incomeMonth += +appData.income[key];
-        }
+        }*/
     },
     getAddExpenses: function() {
         let addExpenses = additionalExpensesItem.value.split(',');
