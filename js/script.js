@@ -1,6 +1,7 @@
 'use strict';
 
 let start = document.getElementById('start'),
+    cancel = document.getElementById('cancel'),
     btnPlus = document.getElementsByTagName('button'),
     incomePlus = btnPlus[0],
     expensesPlus = btnPlus[1],
@@ -21,8 +22,8 @@ let start = document.getElementById('start'),
     periodSelect = document.querySelector('.period-select'),//Ползунок
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
-    periodAmount = document.querySelector('.period-amount');
-    /*incomeItem = document.querySelectorAll('.income-items');*/
+    periodAmount = document.querySelector('.period-amount'),
+    inputTypeText = document.querySelectorAll('.data input[type=text]');
 
 let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -53,6 +54,7 @@ let appData = {
         this.getAddExpenses();
         this.getAddIncome();
         this.showResult();
+        this.reset();
     },
     //Метод, который выводит результаты вычеслений в правую колонку
     showResult: function() {
@@ -69,6 +71,15 @@ let appData = {
         periodSelect.addEventListener('change', () => {
             incomePeriodValue.value = this.calcPeriod();
         });
+    },
+    reset: function() {
+        inputTypeText.forEach(function(item) {
+            item.disabled = false;
+            item.value = '';
+        }, this);
+
+        cancel.style.display = 'none';
+        start.style.display = 'block';
     },
     //Метод, который получает блок с обязательными расходами
     addExpensesBlock: function() {
@@ -188,6 +199,19 @@ salaryAmount.addEventListener('input', function() {
 
 start.addEventListener('click', appData.start.bind(appData));
 
+start.addEventListener('click', function() {
+
+    inputTypeText.forEach(function(item) {
+        item.disabled = true;
+    }, this);
+
+    start.style.display = 'none';
+    cancel.style.display = 'block';
+    start.disabled = true;
+});
+
+cancel.addEventListener('click', appData.reset.bind(appData));
+
 incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
 
 //Нажатие на "+" в поле "Обязательные расходы"
@@ -198,7 +222,6 @@ expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
 periodSelect.addEventListener('input', function() {
     periodAmount.innerHTML = periodSelect.value;
 });
-
 
 
 
