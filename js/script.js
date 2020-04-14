@@ -23,7 +23,8 @@ let start = document.getElementById('start'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     periodAmount = document.querySelector('.period-amount'),
-    inputTypeText = document.querySelectorAll('.data input[type=text]');
+    inputTypeText = document.querySelectorAll('.calc input[type=text]'),
+    inputByPlaceholder = document.querySelectorAll('[placeholder="Наименование"]');
 
 let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -49,6 +50,7 @@ let appData = {
         //Вызоа всех функций
         this.getExpenses();
         this.getIncome();
+        this.getIncomeMonth();
         this.getExpensesMonth();
         this.getBudget();
         this.getAddExpenses();
@@ -73,9 +75,21 @@ let appData = {
         });
     },
     reset: function() {
+        this.budget = 0;
+        this.budgetDay = 0;
+        this.budgetMonth = 0;
+        this.income = {};
+        this.incomeMonth = 0;
+        this.addIncome = [];
+        this.expenses = {};
+        this.expensesMonth = 0;
+        this.addExpenses = [];
+        this.deposit = false;
+        this.percentDeposit = 0;
+        this.moneyDeposit = 0;
+
         inputTypeText.forEach(function(item) {
             item.disabled = false;
-            item.value = '';
         }, this);
 
         cancel.style.display = 'none';
@@ -86,15 +100,19 @@ let appData = {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);//Клонируем поля обязательных расходов
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);//Вставляем перед кнопкой
         expensesItems = document.querySelectorAll('.expenses-items');//Находим все элементы
+        cloneExpensesItem.querySelector('.expenses-title').value = '';
+        cloneExpensesItem.querySelector('.expenses-amount').value = '';
         if (expensesItems.length === 3) {//Если длина = 3, то будем скрывать кнопку
             expensesPlus.style.display = 'none';
         }
     },
-    //Метод, который получает блок с дполнительными доходами
+    //Метод, который получает блок с дополнительными доходами
     addIncomeBlock: function() {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
         incomeItems = document.querySelectorAll('.income-items');
+        cloneIncomeItem.querySelector('.income-title').value = '';
+        cloneIncomeItem.querySelector('.income-amount').value = '';
         if (incomeItems.length === 3) {
             incomePlus.style.display = 'none';
         }
@@ -120,7 +138,7 @@ let appData = {
             let cashIncome = item.querySelector('.income-amount').value;
             //Проверка на пустые значения
             if (itemIncome !== '' && cashIncome !== '') {
-                this.expenses[itemIncome + index] = cashIncome;//Ключ - значение
+                this.income[itemIncome + index] = cashIncome;//Ключ - значение
             }
         }, this);
     },
@@ -161,6 +179,11 @@ let appData = {
             this.expensesMonth += +this.expenses[key];
         }
     },
+    getIncomeMonth: function() {
+        for(let key in this.income) {
+            this.incomeMonth += +this.income[key];
+        }
+    },
     getBudget: function() {
         this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
         this.budgetDay = Math.floor(this.budgetMonth / 30);
@@ -186,9 +209,9 @@ let appData = {
     }
 };
 
+//Нажатие на кнопку "Рассчитать"
 start.disabled = true;
 
-//Нажатие на кнопку "Рассчитать"
 salaryAmount.addEventListener('input', function() {
     if (isNumber(salaryAmount.value)) {
         start.disabled = false;
@@ -212,6 +235,12 @@ start.addEventListener('click', function() {
 
 cancel.addEventListener('click', appData.reset.bind(appData));
 
+cancel.addEventListener('click', function() {
+    inputTypeText.forEach(function(item) {
+        item.value = '';
+    }, this);
+});
+
 incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
 
 //Нажатие на "+" в поле "Обязательные расходы"
@@ -222,6 +251,9 @@ expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
 periodSelect.addEventListener('input', function() {
     periodAmount.innerHTML = periodSelect.value;
 });
+
+
+
 
 
 
