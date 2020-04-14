@@ -23,7 +23,7 @@ let start = document.getElementById('start'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     periodAmount = document.querySelector('.period-amount'),
-    inputTypeText = document.querySelectorAll('.calc input[type=text]'),
+   /* inputTypeText = document.querySelectorAll('.calc input[type=text]'),*/
     inputByPlaceholder = document.querySelectorAll('[placeholder="Наименование"]');
 
 let isNumber = function (n) {
@@ -56,7 +56,13 @@ let appData = {
         this.getAddExpenses();
         this.getAddIncome();
         this.showResult();
-        this.reset();
+
+        let inputTypeText = document.querySelectorAll('.calc input[type=text]');
+
+        inputTypeText.forEach(function(item) {
+            item.disabled = true;
+        });
+
     },
     //Метод, который выводит результаты вычеслений в правую колонку
     showResult: function() {
@@ -75,6 +81,8 @@ let appData = {
         });
     },
     reset: function() {
+
+
         this.budget = 0;
         this.budgetDay = 0;
         this.budgetMonth = 0;
@@ -88,9 +96,12 @@ let appData = {
         this.percentDeposit = 0;
         this.moneyDeposit = 0;
 
+        let inputTypeText = document.querySelectorAll('.calc input[type=text]');
+
         inputTypeText.forEach(function(item) {
             item.disabled = false;
-        }, this);
+            item.value = '';
+        });
 
         cancel.style.display = 'none';
         start.style.display = 'block';
@@ -223,23 +234,12 @@ salaryAmount.addEventListener('input', function() {
 start.addEventListener('click', appData.start.bind(appData));
 
 start.addEventListener('click', function() {
-
-    inputTypeText.forEach(function(item) {
-        item.disabled = true;
-    }, this);
-
     start.style.display = 'none';
     cancel.style.display = 'block';
     start.disabled = true;
 });
 
 cancel.addEventListener('click', appData.reset.bind(appData));
-
-cancel.addEventListener('click', function() {
-    inputTypeText.forEach(function(item) {
-        item.value = '';
-    }, this);
-});
 
 incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
 
@@ -251,10 +251,6 @@ expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
 periodSelect.addEventListener('input', function() {
     periodAmount.innerHTML = periodSelect.value;
 });
-
-
-
-
 
 
 /*Период достижения цели*/
