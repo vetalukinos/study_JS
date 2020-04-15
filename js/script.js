@@ -1,5 +1,6 @@
 'use strict';
 
+//Задаем переменные
 let start = document.getElementById('start'),
     cancel = document.getElementById('cancel'),
     btnPlus = document.getElementsByTagName('button'),
@@ -23,13 +24,31 @@ let start = document.getElementById('start'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     periodAmount = document.querySelector('.period-amount'),
-   /* inputTypeText = document.querySelectorAll('.calc input[type=text]'),*/
-    inputByPlaceholder = document.querySelectorAll('[placeholder="Наименование"]');
+    checkInputByRussianWords = document.querySelectorAll('[placeholder="Наименование"]'),
+    checkInputByNumbers = document.querySelectorAll('[placeholder="Сумма"]');
 
+//Проверяем на число
 let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
+//Проверяем инпуты на русские буквы, символы и пробелы
+checkInputByRussianWords.forEach(function(item) {
+    item.addEventListener('input', function() {
+        this.value = this.value.replace(/[^а-яА-ЯёЁ0-9\+]/, '');
+    })
+});
+
+//Проверяем инпуты на число
+checkInputByNumbers.forEach(function(item) {
+    item.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9\+]/, '');
+        this.value = this.value.substr(0, 11);
+    })
+});
+
+
+//Создаем объект
 let appData = {
     budget: 0,
     budgetDay: 0,
@@ -57,8 +76,9 @@ let appData = {
         this.getAddIncome();
         this.showResult();
 
+        //Снова достаем инпуты
         let inputTypeText = document.querySelectorAll('.calc input[type=text]');
-
+        //Перебираем инпуты через forEach
         inputTypeText.forEach(function(item) {
             item.disabled = true;
         });
@@ -82,7 +102,6 @@ let appData = {
     },
     reset: function() {
 
-
         this.budget = 0;
         this.budgetDay = 0;
         this.budgetMonth = 0;
@@ -96,6 +115,7 @@ let appData = {
         this.percentDeposit = 0;
         this.moneyDeposit = 0;
 
+        //Снова достаем инпуты
         let inputTypeText = document.querySelectorAll('.calc input[type=text]');
 
         inputTypeText.forEach(function(item) {
@@ -103,6 +123,7 @@ let appData = {
             item.value = '';
         });
 
+        //Замена кнопок
         cancel.style.display = 'none';
         start.style.display = 'block';
     },
@@ -119,12 +140,12 @@ let appData = {
     },
     //Метод, который получает блок с дополнительными доходами
     addIncomeBlock: function() {
-        let cloneIncomeItem = incomeItems[0].cloneNode(true);
-        incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
-        incomeItems = document.querySelectorAll('.income-items');
+        let cloneIncomeItem = incomeItems[0].cloneNode(true);//Клонируем поля дополнительных доходов
+        incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);//Вставляем перед кнопкой
+        incomeItems = document.querySelectorAll('.income-items');//Находим все элементы
         cloneIncomeItem.querySelector('.income-title').value = '';
         cloneIncomeItem.querySelector('.income-amount').value = '';
-        if (incomeItems.length === 3) {
+        if (incomeItems.length === 3) {//Если длина = 3, то будем скрывать кнопку
             incomePlus.style.display = 'none';
         }
     },
@@ -234,6 +255,7 @@ salaryAmount.addEventListener('input', function() {
 start.addEventListener('click', appData.start.bind(appData));
 
 start.addEventListener('click', function() {
+    //Замена кнопок
     start.style.display = 'none';
     cancel.style.display = 'block';
     start.disabled = true;
@@ -241,11 +263,11 @@ start.addEventListener('click', function() {
 
 cancel.addEventListener('click', appData.reset.bind(appData));
 
+//Нажатие на "+" в поле "Дополнительные доходы"
 incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
 
 //Нажатие на "+" в поле "Обязательные расходы"
 expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
-
 
 /*Range*/
 periodSelect.addEventListener('input', function() {
@@ -259,4 +281,3 @@ periodSelect.addEventListener('input', function() {
 } else {
     console.log('Цель не будет достигнута');
 }*/
-
