@@ -296,7 +296,7 @@ AppData.prototype.eventsListeners = function() {
 //appData создается из функции-конструктора new AppData()
 const appData = new AppData();
 
-AppData.prototype.eventsListeners();
+appData.eventsListeners();
 
 console.log(appData);
 
