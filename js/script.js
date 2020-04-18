@@ -157,28 +157,28 @@ class AppData {
     //Метод, который получает все расходы
     getExpenses() {
         //Перебираем все элементы с в блоке "Обязательные расходы"
-        expensesItems.forEach((item) => {
+        expensesItems.forEach(function(item, index) {
             //Получаем значение инпутов
-            const itemExpenses = item.querySelector('.expenses-title').value;
-            const cashExpenses = item.querySelector('.expenses-amount').value;
+            let itemExpenses = item.querySelector('.expenses-title').value;
+            let cashExpenses = item.querySelector('.expenses-amount').value;
             //Проверка на пустые значения
             if (itemExpenses !== '' && cashExpenses !== '') {
-                this.expenses[itemExpenses] = cashExpenses;//Ключ - значение
+                this.expenses[itemExpenses + index] = cashExpenses;//Ключ - значение
             }
-        });
+        }, this);
     };
 
     //Метод, который получает все доходы
     getIncome() {
         //Перебираем все элементы с в блоке "Обязательные расходы"
-        incomeItems.forEach((item) => {
-            const itemIncome = item.querySelector('.income-title').value;
-            const cashIncome = item.querySelector('.income-amount').value;
+        incomeItems.forEach(function(item, index) {
+            let itemIncome = item.querySelector('.income-title').value;
+            let cashIncome = item.querySelector('.income-amount').value;
             //Проверка на пустые значения
             if (itemIncome !== '' && cashIncome !== '') {
-                this.income[itemIncome] = cashIncome;//Ключ - значение
+                this.income[itemIncome + index] = cashIncome;//Ключ - значение
             }
-        });
+        }, this);
     };
 
     //Метод, который получает "Возможные расходы"
