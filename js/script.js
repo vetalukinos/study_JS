@@ -47,6 +47,7 @@ checkInputByNumbers.forEach((item) => {
 
 
 class AppData {
+
     /*Функция-конструктор*/
     constructor() {
         this.budget = 0;
@@ -63,10 +64,10 @@ class AppData {
         this.addExpenses = [];
     };
 
-    start() { //Вызывается при нажатии на кнопку "Рассчитать"
-
+    //Метод, который выводит все остальные методы при нажатии на кнопку "Рассчитать"
+    start() {
         this.budget = +salaryAmount.value;
-        //Вызоа всех функций
+        //Вызов всех функций
         this.getExpenses();
         this.getIncome();
         this.getExpensesMonth();
@@ -101,6 +102,7 @@ class AppData {
         });
     };
 
+    //Метод сброса
     reset() {
         this.budget = 0;
         this.budgetDay = 0;
@@ -253,48 +255,45 @@ class AppData {
         return this.budgetMonth * periodSelect.value;//Умножаем на значение ползунка
     };
 
+    eventsListeners() {
+        //Нажатие на кнопку "Рассчитать"
+        start.disabled = true;
+
+        salaryAmount.addEventListener('input', () => {
+            if (isNumber(salaryAmount.value)) {
+                start.disabled = false;
+            } else {
+                start.disabled = true;
+            }
+        });
+
+        const _this = this;
+        start.addEventListener('click', _this.start.bind(_this));
+
+        start.addEventListener('click', () => {
+            //Замена кнопок
+            start.style.display = 'none';
+            cancel.style.display = 'block';
+            start.disabled = true;
+        });
+
+        cancel.addEventListener('click', _this.reset.bind(_this));
+        //Нажатие на "+" в поле "Дополнительные доходы"
+        incomePlus.addEventListener('click', _this.addIncomeBlock.bind(_this));
+        //Нажатие на "+" в поле "Обязательные расходы"
+        expensesPlus.addEventListener('click', _this.addExpensesBlock.bind(_this));
+        /*Range*/
+        periodSelect.addEventListener('input', () => {
+            periodAmount.innerHTML = periodSelect.value;
+        });
+    };
+
 }
 
 
-
-AppData.prototype.eventsListeners = function() {
-
-    //Нажатие на кнопку "Рассчитать"
-    start.disabled = true;
-
-    salaryAmount.addEventListener('input', () => {
-        if (isNumber(salaryAmount.value)) {
-            start.disabled = false;
-        } else {
-            start.disabled = true;
-        }
-    });
-
-    const _this = this;
-
-    start.addEventListener('click', _this.start.bind(_this));
-
-    start.addEventListener('click', () => {
-        //Замена кнопок
-        start.style.display = 'none';
-        cancel.style.display = 'block';
-        start.disabled = true;
-    });
-
-    cancel.addEventListener('click', _this.reset.bind(_this));
-    //Нажатие на "+" в поле "Дополнительные доходы"
-    incomePlus.addEventListener('click', _this.addIncomeBlock.bind(_this));
-    //Нажатие на "+" в поле "Обязательные расходы"
-    expensesPlus.addEventListener('click', _this.addExpensesBlock.bind(_this));
-    /*Range*/
-    periodSelect.addEventListener('input', () => {
-        periodAmount.innerHTML = periodSelect.value;
-    });
-};
-
 //appData создается из функции-конструктора new AppData()
 const appData = new AppData();
-
+//Наследуем eventsListeners() от конструктора
 appData.eventsListeners();
 
 console.log(appData);
