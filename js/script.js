@@ -183,23 +183,23 @@ class AppData {
 
     //Метод, который получает "Возможные расходы"
     getAddExpenses() {
-        const addExpenses = additionalExpensesItem.value.split(',');//Значение поля
-        addExpenses.forEach((item) => {
+        let addExpenses = additionalExpensesItem.value.split(',');//Значение поля
+        addExpenses.forEach(function(item) {
             item = item.trim();//Убираем пробелы в начале и в конце
             if (item !== '') {//Проверка на пустую строку
                 this.addExpenses.push(item);
             }
-        });
+        }, this);
     };
 
     //Метод, который получает "Возможные доходы"
     getAddIncome() {
-        additionalIncomeItem.forEach((item) => {
-            const itemValue = item.value.trim();//Убираем пробелы в начале и в конце
+        additionalIncomeItem.forEach(function(item) {
+            let itemValue = item.value.trim();//Убираем пробелы в начале и в конце
             if (itemValue !== '') {//Проверка на пустую строку
                 this.addIncome.push(itemValue);
             }
-        });
+        }, this);
     };
 
     getInfoDeposit() {
