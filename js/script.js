@@ -49,6 +49,18 @@ checkInputByNumbers.forEach((item) => {
 });
 
 
+depositPercent.addEventListener('input', function() {
+    if (Number(this.value) >= 0 && Number(this.value) <= 100) {
+        this.value;
+        start.disabled = false;
+   } else {
+        start.disabled = true;
+        this.value = '';
+        alert ("Введите корректное значение в поле проценты");
+   }
+});
+
+
 class AppData {
 
     /*Функция-конструктор*/
@@ -261,6 +273,8 @@ class AppData {
         const valueSelect = this.value;
         if (valueSelect === 'other') {
             depositPercent.style.display = 'inline-block';
+            depositPercent.disabled = false;
+            depositPercent.value = '';
         } else {
             depositPercent.value = valueSelect;
         }
@@ -335,8 +349,6 @@ class AppData {
 const appData = new AppData();
 //Наследуем eventsListeners() от конструктора
 appData.eventsListeners();
-
-console.log(appData);
 
 
 
