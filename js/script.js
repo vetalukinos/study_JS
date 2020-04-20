@@ -333,13 +333,6 @@ class AppData {
 
         //Добавляем депозит
         depositCheck.addEventListener('change', _this.depositHandler.bind(_this));
-
-        //Добавляем процент депозита
-        /*const otherPercent = document.querySelector('.deposit-bank > [value="other"]');
-
-        otherPercent.addEventListener('select', () => {
-            depositPercent.style.display = 'inline-block';
-        });*/
     };
 
 }
