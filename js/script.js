@@ -48,7 +48,7 @@ checkInputByNumbers.forEach((item) => {
     })
 });
 
-
+//Проверяем поле "Процент" на число и возможность ввода только от 0 до 100
 depositPercent.addEventListener('input', function() {
     if (Number(this.value) >= 0 && Number(this.value) <= 100) {
         this.value;
@@ -340,7 +340,7 @@ class AppData {
 
 //appData создается из функции-конструктора new AppData()
 const appData = new AppData();
-//Наследуем eventsListeners() от конструктора
+//Наследуем eventsListeners() от класса appData
 appData.eventsListeners();
 
 
