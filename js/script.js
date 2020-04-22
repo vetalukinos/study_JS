@@ -21,8 +21,6 @@ const start = document.getElementById('start'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     periodAmount = document.querySelector('.period-amount'),
-    checkInputByRussianWords = document.querySelectorAll('[placeholder="Наименование"]'),
-    checkInputByNumbers = document.querySelectorAll('[placeholder="Сумма"]'),
     depositBank = document.querySelector('.deposit-bank'),
     depositAmount = document.querySelector('.deposit-amount'),
     depositPercent = document.querySelector('.deposit-percent');
@@ -34,6 +32,7 @@ let expensesItems = document.querySelectorAll('.expenses-items'),
 const isNumber = (n) => !isNaN(parseFloat(n)) && isFinite(n);
 
 //Проверяем инпуты на русские буквы, символы и пробелы
+let checkInputByRussianWords = document.querySelectorAll('[placeholder="Наименование"]');
 checkInputByRussianWords.forEach((item) => {
     item.addEventListener('input', function() {
         this.value = this.value.replace(/[^а-яА-ЯёЁ0-9\+]/, '');
@@ -41,6 +40,7 @@ checkInputByRussianWords.forEach((item) => {
 });
 
 //Проверяем инпуты на число
+let checkInputByNumbers = document.querySelectorAll('[placeholder="Сумма"]');
 checkInputByNumbers.forEach((item) => {
     item.addEventListener('input', function() {
         this.value = this.value.replace(/[^0-9\+]/, '');
